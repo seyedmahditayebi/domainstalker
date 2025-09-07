@@ -1,6 +1,7 @@
 import { Calendar, Home } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import AddDomainButton from './AddDomainButton';
 
 export default function SideNav() {
   return (
@@ -32,9 +33,7 @@ export default function SideNav() {
             </div>
           </div>
           <div className="flex justify-center mb-10">
-            <button className="py-3 px-8 hover:cursor-pointer hover:bg-accent-600 rounded-md bg-accent-700  ">
-              Add domain
-            </button>
+            <AddDomainButton />
           </div>
         </div>
       </div>
