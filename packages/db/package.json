@@ -1,0 +1,22 @@
+{
+  "name": "@repo/db",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc"
+  },
+  "exports": {
+    "./db": "./dist/db.js",
+    "./Domain": "./dist/entities/Domain.js",
+    "./Scan": "./dist/entities/Scan.js"
+  },
+  "dependencies": {
+    "pg": "catalog:",
+    "pg-query-stream": "catalog:",
+    "reflect-metadata": "catalog:",
+    "typeorm": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "worker",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc && node dist/main.js"
+  },
+  "dependencies": {
+    "bullmq": "^5.58.5",
+    "ioredis": "^5.7.0",
+    "typescript": "^5.9.2",
+    "@repo/db": "workspace:*",
+    "pg": "catalog:",
+    "pg-query-stream": "catalog:",
+    "reflect-metadata": "catalog:",
+    "typeorm": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:"
+  }
+}

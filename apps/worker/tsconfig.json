@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "moduleDetection": "force",
+    "sourceMap": true,
+    "outDir": "dist"
+  }
+}
