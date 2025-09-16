@@ -15,4 +15,11 @@ const AppDataSource = new DataSource({
   logging: false,
 });
 
-export default AppDataSource;
+const initializeDataSource = async () => {
+  if (!AppDataSource.isInitialized) {
+    await AppDataSource.initialize();
+  }
+  return AppDataSource;
+};
+
+export default initializeDataSource;
