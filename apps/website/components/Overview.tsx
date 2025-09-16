@@ -1,8 +1,21 @@
-import { Clock, Crosshair, Globe, Search, Target } from 'lucide-react';
+import { Clock, Crosshair, Globe, Search } from 'lucide-react';
 import colors from 'tailwindcss/colors';
 import OverviewCard from './OverviewCard';
+import {
+  getAllDomains,
+  getAllSubdomainsCount,
+  getCurrentlyScanningCount,
+  getCurrentlyScheduledCount,
+} from '@/utils/dataRetriveUtils';
 
-export default function Overview() {
+export default async function Overview() {
+  const [allDomains, scheduledDomains, scanningDomains, allSubdomains] =
+    await Promise.all([
+      getAllDomains(),
+      getCurrentlyScheduledCount(),
+      getCurrentlyScanningCount(),
+      getAllSubdomainsCount(),
+    ]);
   return (
     <div>
       <div className="">
@@ -10,22 +23,22 @@ export default function Overview() {
       </div>
       <div className="flex justify-evenly">
         <OverviewCard
-          data={4}
+          data={allDomains}
           text="Total Domains"
           icon={<Globe color={colors.blue[500]} />}
         />
         <OverviewCard
-          data={1}
+          data={scanningDomains}
           text="Scanning"
           icon={<Search color={colors.slate[400]} />}
         />
         <OverviewCard
-          data={20}
+          data={allSubdomains}
           text="Total Subdomains"
           icon={<Crosshair color={colors.red[500]} />}
         />
         <OverviewCard
-          data={7}
+          data={scheduledDomains}
           text="Scans in Schedule"
           icon={<Clock color={colors.green[500]} />}
         />

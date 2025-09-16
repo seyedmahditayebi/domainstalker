@@ -1,11 +1,22 @@
 import DomainTable from '@/components/DomainTable';
 import Overview from '@/components/Overview';
 import { Ellipsis } from 'lucide-react';
-import { fakeData } from '@/utils/fakedata';
 import stateStyle from '@/types/stateStyle';
-import dayjsRelativeTime from '@/utils/dayjsRelativeTime';
+import { dayjsExtended } from '@/utils/dayjsExtended';
+import db from '@/utils/appDataSource';
+import { Domain } from '@repo/db/Domain';
 
-export default function Page() {
+export default async function Page() {
+  const data = await db.manager.find(Domain, {
+    select: {
+      name: true,
+      id: true,
+      scanInterval: true,
+      nextScan: true,
+      status: true,
+      totalSubdomains: true,
+    },
+  });
   return (
     <main className="px-12 pt-8 ">
       <Overview />
@@ -17,22 +28,24 @@ export default function Page() {
           <p className="col-span-2">Next Scan</p>
         </DomainTable.Header>
         <DomainTable.Body>
-          {fakeData.map((item) => (
+          {data.map((item) => (
             <DomainTable.Row key={item.id}>
-              <p className="font-semibold">{item.domain}</p>
-              <p>{item.subdomainsCount}</p>
+              <p className="font-semibold">{item.name}</p>
+              <p>{item.totalSubdomains?.split('\\n').length || 0}</p>
               <div>
                 <p
                   className={`inline border ${
-                    stateStyle[item.status]
-                  } text-sm rounded-md  py-1 px-2`}
+                    item.status && stateStyle[item.status]
+                  } text-sm rounded-md py-1 px-2`}
                 >
                   {item.status}
                 </p>
               </div>
               <p>
                 {item.nextScan
-                  ? dayjsRelativeTime(item.nextScan).fromNow()
+                  ? dayjsExtended(item.nextScan)
+                      .add(dayjsExtended().utcOffset(), 'minutes')
+                      .fromNow()
                   : 'Never'}
               </p>
               <button>

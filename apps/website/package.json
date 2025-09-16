@@ -14,7 +14,12 @@
     "lucide-react": "^0.542.0",
     "next": "15.5.2",
     "react": "19.1.0",
-    "react-dom": "19.1.0"
+    "react-dom": "19.1.0",
+    "@repo/db": "workspace:*",
+    "pg": "catalog:",
+    "pg-query-stream": "catalog:",
+    "reflect-metadata": "catalog:",
+    "typeorm": "catalog:"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
