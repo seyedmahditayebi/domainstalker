@@ -1,6 +1,7 @@
 'use client';
 import formatInterval from '@/utils/formatInterval';
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 interface AddDomainModalProps {
   isOpen: boolean;
@@ -40,7 +41,7 @@ export default function AddDomainModal({
   }, [isOpen, modalToggle]);
 
   if (!isOpen) return null;
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 bg-primary-950/90 flex items-center justify-center "
       onClick={(e) => {
@@ -103,6 +104,7 @@ export default function AddDomainModal({
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
