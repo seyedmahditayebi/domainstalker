@@ -3,10 +3,10 @@ CREATE TYPE domain_status as ENUM ('scanning', 'scheduled', 'not-scheduled');
 CREATE TABLE domain(
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(256) UNIQUE NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
     total_subdomains TEXT,
     scan_interval INTERVAL NOT NULL,
-    next_scan TIMESTAMP,
+    next_scan TIMESTAMP WITH TIME ZONE,
     status domain_status
 );
 
@@ -14,7 +14,7 @@ CREATE TABLE domain(
 CREATE TABLE scan(
     id BIGSERIAL PRIMARY KEY,
     domain_id BIGINT NOT NULL REFERENCES domain(id) ON DELETE CASCADE,
-    started_at TIMESTAMP NOT NULL,
-    finished_at TIMESTAMP NOT NULL,
+    started_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    finished_at TIMESTAMP WITH TIME ZONE NOT NULL,
     discovered_subdomains TEXT
 );

@@ -17,7 +17,7 @@ export class Domain {
   @Column("character varying", { name: "name", unique: true, length: 256 })
   name: string;
 
-  @Column("timestamp without time zone", {
+  @Column("timestamp with time zone", {
     name: "created_at",
     default: () => "now()",
   })
@@ -26,10 +26,10 @@ export class Domain {
   @Column("text", { name: "total_subdomains", nullable: true })
   totalSubdomains: string | null;
 
-  @Column("interval", { name: "scan_interval", nullable: true })
-  scanInterval: any | null;
+  @Column("interval", { name: "scan_interval" })
+  scanInterval: any;
 
-  @Column("timestamp without time zone", { name: "next_scan", nullable: true })
+  @Column("timestamp with time zone", { name: "next_scan", nullable: true })
   nextScan: Date | null;
 
   @Column("enum", {

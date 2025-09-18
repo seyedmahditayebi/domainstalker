@@ -14,10 +14,10 @@ export class Scan {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
   id: string;
 
-  @Column("timestamp without time zone", { name: "started_at" })
+  @Column("timestamp with time zone", { name: "started_at" })
   startedAt: Date;
 
-  @Column("timestamp without time zone", { name: "finished_at" })
+  @Column("timestamp with time zone", { name: "finished_at" })
   finishedAt: Date;
 
   @Column("text", { name: "discovered_subdomains", nullable: true })
