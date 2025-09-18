@@ -9,6 +9,9 @@ catalogs:
     '@types/node':
       specifier: ^20.19.14
       version: 20.19.14
+    dayjs:
+      specifier: ^1.11.18
+      version: 1.11.18
     pg:
       specifier: ^8.16.3
       version: 8.16.3
@@ -36,7 +39,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/db
       dayjs:
-        specifier: ^1.11.18
+        specifier: 'catalog:'
         version: 1.11.18
       lucide-react:
         specifier: ^0.542.0
@@ -99,6 +102,9 @@ importers:
       bullmq:
         specifier: ^5.58.5
         version: 5.58.5
+      dayjs:
+        specifier: 'catalog:'
+        version: 1.11.18
       ioredis:
         specifier: ^5.7.0
         version: 5.7.0

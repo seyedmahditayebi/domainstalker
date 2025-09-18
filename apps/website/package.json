@@ -10,7 +10,6 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "dayjs": "^1.11.18",
     "lucide-react": "^0.542.0",
     "next": "15.5.2",
     "react": "19.1.0",
@@ -19,7 +18,8 @@
     "pg": "catalog:",
     "pg-query-stream": "catalog:",
     "reflect-metadata": "catalog:",
-    "typeorm": "catalog:"
+    "typeorm": "catalog:",
+    "dayjs": "catalog:"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

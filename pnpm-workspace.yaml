@@ -8,3 +8,4 @@ catalog:
   reflect-metadata: ^0.2.2
   typeorm: ^0.3.26
   '@types/node': ^20.19.14
+  dayjs: ^1.11.18
