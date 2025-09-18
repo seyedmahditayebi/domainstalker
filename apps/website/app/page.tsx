@@ -1,6 +1,6 @@
 import DomainTable from '@/components/DomainTable';
 import Overview from '@/components/Overview';
-import { Ellipsis } from 'lucide-react';
+import DomainDetailButton from '@/components/DomainDetailButton';
 import stateStyle from '@/types/stateStyle';
 import { dayjsExtended } from '@/utils/dayjsExtended';
 import db from '@/utils/appDataSource';
@@ -50,9 +50,7 @@ export default async function Page() {
                   ? dayjsExtended(item.nextScan).fromNow()
                   : 'Never'}
               </p>
-              <button>
-                <Ellipsis />
-              </button>
+              <DomainDetailButton domain={item.name} />
             </DomainTable.Row>
           ))}
         </DomainTable.Body>
