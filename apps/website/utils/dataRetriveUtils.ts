@@ -23,8 +23,12 @@ export async function getCurrentlyScanningCount() {
 
 export async function getAllSubdomainsCount(): Promise<number> {
   const allSubdomains = await db.manager.query(
-    `SELECT STRING_AGG(total_subdomains, '\\n') AS all_domains_subdomains FROM domain;`
+    `SELECT SUM(
+    CASE
+        WHEN total_subdomains IS NULL OR total_subdomains = '' THEN 0
+        ELSE REGEXP_COUNT(total_subdomains, E'\n') + 1
+    END
+    ) AS all_domains_subdomains FROM domain;`
   );
-  console.log(allSubdomains[0]['all_domains_subdomains']);
-  return allSubdomains[0]['all_domains_subdomains'].split('\\n').length;
+  return allSubdomains[0]['all_domains_subdomains'];
 }

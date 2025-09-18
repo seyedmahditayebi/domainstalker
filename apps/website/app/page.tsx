@@ -31,7 +31,11 @@ export default async function Page() {
           {data.map((item) => (
             <DomainTable.Row key={item.id}>
               <p className="font-semibold">{item.name}</p>
-              <p>{item.totalSubdomains?.split('\\n').length || 0}</p>
+              <p>
+                {item.totalSubdomains
+                  ? item.totalSubdomains.split('\n').length
+                  : 0}
+              </p>
               <div>
                 <p
                   className={`inline border ${
@@ -43,9 +47,7 @@ export default async function Page() {
               </div>
               <p>
                 {item.nextScan
-                  ? dayjsExtended(item.nextScan)
-                      .add(dayjsExtended().utcOffset(), 'minutes')
-                      .fromNow()
+                  ? dayjsExtended(item.nextScan).fromNow()
                   : 'Never'}
               </p>
               <button>
