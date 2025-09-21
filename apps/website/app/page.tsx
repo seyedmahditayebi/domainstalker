@@ -2,8 +2,8 @@ import DomainTable from '@/components/DomainTable';
 import Overview from '@/components/Overview';
 import DomainDetailButton from '@/components/DomainDetailButton';
 import stateStyle from '@/types/stateStyle';
-import { dayjsExtended } from '@/utils/dayjsExtended';
-import db from '@/utils/appDataSource';
+import { dayjsExtended } from '@/lib/dayjsExtended';
+import db from '@/lib/appDataSource';
 import { Domain } from '@repo/db/Domain';
 
 export default async function Page() {

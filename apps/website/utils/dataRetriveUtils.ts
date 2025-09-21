@@ -1,4 +1,4 @@
-import db from '@/utils/appDataSource';
+import db from '@/lib/appDataSource';
 import { Domain } from '@repo/db/Domain';
 
 export async function getAllDomains() {
