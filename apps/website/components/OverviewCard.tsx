@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 
 interface OverviewCardProps {
   text: string;
-  data: number;
+  data: number | string;
   icon: ReactNode;
 }
 export default function OverviewCard({ text, data, icon }: OverviewCardProps) {
