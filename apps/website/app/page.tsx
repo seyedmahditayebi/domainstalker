@@ -1,5 +1,5 @@
 import DomainTable from '@/components/DomainTable';
-import Overview from '@/components/Overview';
+import DomainOverview from '@/components/DomainOverview';
 import DomainDetailButton from '@/components/DomainDetailButton';
 import stateStyle from '@/types/stateStyle';
 import { dayjsExtended } from '@/lib/dayjsExtended';
@@ -19,7 +19,7 @@ export default async function Page() {
   });
   return (
     <main className="px-12 pt-8 ">
-      <Overview />
+      <DomainOverview />
       <DomainTable className="*:grid *:grid-cols-[1fr_1fr_1fr_1fr_60px]  *:divide-x *:divide-solid  *:divide-primary-50/20  border border-primary-50/70 rounded-md">
         <DomainTable.Header>
           <p>Domain</p>

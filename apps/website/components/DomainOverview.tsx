@@ -8,7 +8,7 @@ import {
   getCurrentlyScheduledCount,
 } from '@/utils/dataRetriveUtils';
 
-export default async function Overview() {
+export default async function DomainOverview() {
   const [allDomains, scheduledDomains, scanningDomains, allSubdomains] =
     await Promise.all([
       getAllDomains(),
