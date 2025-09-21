@@ -1,7 +1,7 @@
 import db from '@/lib/appDataSource';
 import { Domain } from '@repo/db/Domain';
 
-export async function getAllDomains() {
+export async function getAllDomainsCount() {
   return await db.manager.count(Domain);
 }
 

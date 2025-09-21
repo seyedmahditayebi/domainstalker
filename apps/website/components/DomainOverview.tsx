@@ -2,7 +2,7 @@ import { Clock, Crosshair, Globe, Search } from 'lucide-react';
 import colors from 'tailwindcss/colors';
 import OverviewCard from './OverviewCard';
 import {
-  getAllDomains,
+  getAllDomainsCount,
   getAllSubdomainsCount,
   getCurrentlyScanningCount,
   getCurrentlyScheduledCount,
@@ -11,7 +11,7 @@ import {
 export default async function DomainOverview() {
   const [allDomains, scheduledDomains, scanningDomains, allSubdomains] =
     await Promise.all([
-      getAllDomains(),
+      getAllDomainsCount(),
       getCurrentlyScheduledCount(),
       getCurrentlyScanningCount(),
       getAllSubdomainsCount(),
