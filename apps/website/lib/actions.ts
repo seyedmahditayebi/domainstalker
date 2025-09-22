@@ -1,7 +1,13 @@
 'use server';
 import db from '@/lib/appDataSource';
+import { isValidDomain } from '@/utils/isValidDomain';
 import { Domain } from '@repo/db/Domain';
 import { Scan } from '@repo/db/Scan';
+import { revalidatePath } from 'next/cache';
+import { dayjsExtended } from './dayjsExtended';
+import { Queue } from 'bullmq';
+import Redis from 'ioredis';
+import { getDomainIdByName } from '@/utils/dataRetriveUtils';
 
 export async function getAllSubdomains(domainId: string) {
   try {
@@ -51,4 +57,39 @@ export async function getScanSubdomains(scanId: string) {
   } catch (error) {
     throw new Error(error.message);
   }
+}
+
+export async function addDomain(formData: FormData) {
+  const [name, days, hours] = formData.values();
+  if (!isValidDomain(name as string))
+    throw new Error('Please give a valid domain');
+
+  if (Number(hours) < 1 && Number(days) < 1)
+    throw new Error('Please fill hour or day or both');
+
+  const connection = new Redis({ maxRetriesPerRequest: null });
+  const queue = new Queue('scanjob', { connection });
+
+  const domain = new Domain();
+  domain.name = name as string;
+  domain.status = 'scheduled';
+  domain.scanInterval = `${days} day ${hours} hour`;
+  domain.nextScan = dayjsExtended()
+    .add(Number(days), 'days')
+    .add(Number(hours), 'hours')
+    .toDate();
+  await db.manager.save(domain);
+
+  const domainId = await getDomainIdByName(name as string);
+  queue.upsertJobScheduler(
+    name as string,
+    {
+      every: dayjsExtended
+        .duration({ days: Number(days), hours: Number(hours) })
+        .asMilliseconds(),
+    },
+    { data: { name: name as string, id: domainId.id } }
+  );
+
+  revalidatePath('/');
 }

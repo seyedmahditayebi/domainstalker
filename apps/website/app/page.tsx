@@ -18,7 +18,7 @@ export default async function Page() {
     },
   });
   return (
-    <main className="px-12 pt-8 ">
+    <main className="px-12 py-8 ">
       <DomainOverview />
       <DomainTable className="*:grid *:grid-cols-[1fr_1fr_1fr_1fr_60px]  *:divide-x *:divide-solid  *:divide-primary-50/20  border border-primary-50/70 rounded-md">
         <DomainTable.Header>

@@ -19,7 +19,9 @@
     "pg-query-stream": "catalog:",
     "reflect-metadata": "catalog:",
     "typeorm": "catalog:",
-    "dayjs": "catalog:"
+    "dayjs": "catalog:",
+    "bullmq": "catalog:",
+    "ioredis": "catalog:"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

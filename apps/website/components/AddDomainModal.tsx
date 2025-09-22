@@ -1,4 +1,5 @@
 'use client';
+import { addDomain } from '@/lib/actions';
 import formatInterval from '@/utils/formatInterval';
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -15,6 +16,9 @@ export default function AddDomainModal({
   const [days, setDay] = useState(0);
   const [hours, setHour] = useState(0);
   const inputEl = useRef<HTMLInputElement>(null);
+
+  const [error, setError] = useState<string | null>(null);
+  const [isPending, setIsPending] = useState(false);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -40,6 +44,21 @@ export default function AddDomainModal({
     };
   }, [isOpen, modalToggle]);
 
+  async function handleAddDomain(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setIsPending(true);
+    setError(null);
+    try {
+      const formData = new FormData(event.currentTarget);
+      const response = await addDomain(formData);
+      modalToggle();
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsPending(false);
+    }
+  }
+
   if (!isOpen) return null;
   return createPortal(
     <div
@@ -49,10 +68,11 @@ export default function AddDomainModal({
       }}
     >
       <div className="w-1/3 bg-primary-700 p-5 rounded-2xl ">
-        <form action="">
+        <form onSubmit={handleAddDomain}>
           <div>
             <p className="font-bold text-xl">Domain:</p>
             <input
+              name="domain"
               id="addDomainInput"
               type="text"
               className="mt-2 rounded-sm px-2 py-1 border outline-0  focus:ring-2 focus:border-transparent focus:ring-blue-600"
@@ -69,6 +89,7 @@ export default function AddDomainModal({
                 </label>
                 <input
                   required
+                  defaultValue={0}
                   type="number"
                   name="days"
                   className="border rounded-sm  w-3/4  px-2 py-1 outline-0  focus:ring-2 focus:border-transparent focus:ring-blue-600"
@@ -83,6 +104,7 @@ export default function AddDomainModal({
                 </label>
                 <input
                   required
+                  defaultValue={0}
                   type="number"
                   name="hours"
                   className="rounded-sm  w-3/4 px-2 py-1 border outline-0  focus:ring-2 focus:border-transparent focus:ring-blue-600 "
@@ -97,11 +119,16 @@ export default function AddDomainModal({
               {formatInterval(days, hours)}
             </p>
             <div className="flex justify-end">
-              <button className="py-3 px-8 hover:cursor-pointer hover:bg-accent-600 rounded-md bg-accent-700 font-bold ">
+              <button
+                type="submit"
+                disabled={isPending}
+                className="py-3 px-8 hover:cursor-pointer hover:bg-accent-600 rounded-md bg-accent-700 font-bold "
+              >
                 Add
               </button>
             </div>
           </div>
+          {error && <p className="text-red-500">{error}</p>}
         </form>
       </div>
     </div>,
