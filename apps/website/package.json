@@ -12,6 +12,8 @@
   "dependencies": {
     "@repo/db": "workspace:*",
     "bullmq": "catalog:",
+    "chart.js": "^4.5.0",
+    "chartjs-plugin-autocolors": "^0.3.1",
     "dayjs": "catalog:",
     "ioredis": "catalog:",
     "lucide-react": "^0.542.0",
@@ -19,6 +21,7 @@
     "pg": "catalog:",
     "pg-query-stream": "catalog:",
     "react": "19.1.0",
+    "react-chartjs-2": "^5.3.0",
     "react-dom": "19.1.0",
     "react-toastify": "^11.0.5",
     "reflect-metadata": "catalog:",
