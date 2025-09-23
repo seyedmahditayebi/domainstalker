@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { Domain } from '@repo/db/Domain';
 import { Scan } from '@repo/db/Scan';
+import { DomainstalkerMigration1758640128392 } from '@repo/db/1758640128392-domainstalkerMigration';
 import { env } from 'process';
 
 const AppDataSource = new DataSource({
@@ -12,7 +13,9 @@ const AppDataSource = new DataSource({
   password: env['POSTGRES_PASSWORD'],
   database: env['POSTGRES_DB'],
   entities: [Domain, Scan],
+  migrations: [DomainstalkerMigration1758640128392],
   synchronize: false,
+  migrationsRun: true,
   logging: false,
 });
 

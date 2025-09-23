@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { Domain } from './entities/Domain';
 import { Scan } from './entities/Scan';
+import { DomainstalkerMigration1758640128392 } from './migration/1758640128392-domainstalkerMigration';
 import { env } from 'process';
 import { config } from 'dotenv';
 config();
@@ -14,7 +15,9 @@ const AppDataSource = new DataSource({
   password: env['POSTGRES_PASSWORD'],
   database: env['POSTGRES_DB'],
   entities: [Domain, Scan],
+  migrations: [DomainstalkerMigration1758640128392],
   synchronize: false,
+  migrationsRun: true,
   logging: false,
 });
 

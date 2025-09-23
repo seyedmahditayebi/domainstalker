@@ -8,7 +8,8 @@
   "exports": {
     "./db": "./dist/db.js",
     "./Domain": "./dist/entities/Domain.js",
-    "./Scan": "./dist/entities/Scan.js"
+    "./Scan": "./dist/entities/Scan.js",
+    "./1758640128392-domainstalkerMigration": "./dist/migration/1758640128392-domainstalkerMigration.js"
   },
   "dependencies": {
     "dotenv": "catalog:",
