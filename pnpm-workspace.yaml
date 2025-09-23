@@ -11,3 +11,4 @@ catalog:
   dayjs: ^1.11.18
   bullmq: ^5.58.5
   ioredis: ^5.7.0
+  dotenv: ^17.2.2

@@ -11,6 +11,7 @@
     "./Scan": "./dist/entities/Scan.js"
   },
   "dependencies": {
+    "dotenv": "catalog:",
     "pg": "catalog:",
     "pg-query-stream": "catalog:",
     "reflect-metadata": "catalog:",

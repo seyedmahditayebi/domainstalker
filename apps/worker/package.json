@@ -6,15 +6,16 @@
     "dev": "tsc && node dist/main.js"
   },
   "dependencies": {
+    "@repo/db": "workspace:*",
     "bullmq": "catalog:",
     "dayjs": "catalog:",
+    "dotenv": "catalog:",
     "ioredis": "catalog:",
-    "typescript": "^5.9.2",
-    "@repo/db": "workspace:*",
     "pg": "catalog:",
     "pg-query-stream": "catalog:",
     "reflect-metadata": "catalog:",
-    "typeorm": "catalog:"
+    "typeorm": "catalog:",
+    "typescript": "^5.9.2"
   },
   "devDependencies": {
     "@types/node": "catalog:"

@@ -9,6 +9,7 @@ import { Queue } from 'bullmq';
 import Redis from 'ioredis';
 import { getDomainIdByName } from '@/utils/dataRetriveUtils';
 import formatInterval from '@/utils/formatInterval';
+import { env } from 'process';
 
 export async function getAllSubdomains(domainId: string) {
   try {
@@ -68,7 +69,12 @@ export async function addDomain(formData: FormData) {
   if (Number(hours) < 1 && Number(days) < 1)
     throw new Error('Please fill hour or day or both');
 
-  const connection = new Redis({ maxRetriesPerRequest: null });
+  const connection = new Redis({
+    maxRetriesPerRequest: null,
+    host: env['REDIS_HOST'],
+    port: Number(env['REDIS_PORT']),
+  });
+
   const queue = new Queue('scanjob', { connection });
 
   const domain = new Domain();
@@ -100,7 +106,12 @@ export async function updateDomain(formData: FormData) {
   if (Number(hours) < 1 && Number(days) < 1)
     throw new Error('Please fill hour or day or both');
 
-  const connection = new Redis({ maxRetriesPerRequest: null });
+  const connection = new Redis({
+    maxRetriesPerRequest: null,
+    host: env['REDIS_HOST'],
+    port: Number(env['REDIS_PORT']),
+  });
+
   const queue = new Queue('scanjob', { connection });
 
   const domain = await db.manager.findOneBy(Domain, { name: name as string });

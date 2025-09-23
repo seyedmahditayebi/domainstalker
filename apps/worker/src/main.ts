@@ -10,12 +10,21 @@ import { Worker, Queue } from 'bullmq';
 import Redis from 'ioredis';
 import path from 'path/posix';
 import { dayjsExtended } from './dayjsExtended';
+import dotenv from 'dotenv';
+import { env } from 'process';
+
+dotenv.config();
 
 async function init() {
   const database = await db();
   const domains = await database.manager.find(Domain);
 
-  const connection = new Redis({ maxRetriesPerRequest: null });
+  const connection = new Redis({
+    maxRetriesPerRequest: null,
+    host: env['REDIS_HOST'],
+    port: Number(env['REDIS_PORT']),
+  });
+
   const queue = new Queue('scanjob', { connection });
   await cleanBullmqJobs(queue);
 
