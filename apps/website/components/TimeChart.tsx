@@ -27,7 +27,7 @@ export default function TimeChart({ domains }: { domains: Domain[] }) {
       let nextScan = dayjsExtended(item.nextScan);
       const interval = dayjsExtended.duration(item.scanInterval);
 
-      let tommorow = baseDate.add(1, 'day').startOf('day');
+      const tommorow = baseDate.add(1, 'day').startOf('day');
 
       let timeCursor = nextScan.clone();
 
@@ -71,7 +71,7 @@ export default function TimeChart({ domains }: { domains: Domain[] }) {
           //   return context[0].dataset.label;
           // },
           label: (context) => {
-            const point = context.raw as any;
+            const point = context.raw as any; // eslint-disable-line @typescript-eslint/no-explicit-any
             return [
               `${context.dataset.label} Future Scan: ${dayjsExtended(point.x).format('MMM D HH:mm')}`,
             ];

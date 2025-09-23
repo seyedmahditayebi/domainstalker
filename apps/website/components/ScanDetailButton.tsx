@@ -32,8 +32,8 @@ function PopUp({
 }) {
   useEffect(
     function () {
-      function handleClick(e) {
-        if (ref.current && !ref.current.contains(e.target)) {
+      function handleClick(e: MouseEvent) {
+        if (ref.current && !ref.current.contains(e.target as HTMLElement)) {
           handler();
         }
       }

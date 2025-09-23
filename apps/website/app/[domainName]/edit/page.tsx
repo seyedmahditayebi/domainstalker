@@ -3,7 +3,7 @@
 import { getDomainInterval, updateDomain } from '@/lib/actions';
 import formatInterval from '@/utils/formatInterval';
 import { useParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 
 export default function Page() {
@@ -17,7 +17,7 @@ export default function Page() {
 
   useEffect(() => {
     intervalInit();
-  }, [params.domainName]);
+  });
 
   async function intervalInit() {
     const interval = await getDomainInterval(params.domainName as string);
@@ -30,16 +30,18 @@ export default function Page() {
 
     try {
       const formData = new FormData(event.currentTarget);
-      const response = await updateDomain(formData);
+      await updateDomain(formData);
       intervalInit();
       notify();
     } catch (error) {
-      setError(error.message);
+      if (error instanceof Error) setError(error.message);
+      else if (typeof error === 'string') {
+        setError(error);
+      }
     } finally {
       setIsPending(false);
     }
   }
-  console.log(`interval is ${domainInterval}`);
   return (
     <main className="px-12 py-8 ">
       <h1 className="font-bold text-3xl mb-4">{params.domainName}</h1>

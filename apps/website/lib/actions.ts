@@ -27,7 +27,8 @@ export async function getAllSubdomains(domainId: string) {
     }
     return { allSubdomains, domainName: domain.name };
   } catch (error) {
-    throw new Error(error.message);
+    if (error instanceof Error) throw new Error(error.message);
+    else throw new Error('unknown error happend');
   }
 }
 
@@ -57,7 +58,8 @@ export async function getScanSubdomains(scanId: string) {
         .join('.'),
     };
   } catch (error) {
-    throw new Error(error.message);
+    if (error instanceof Error) throw new Error(error.message);
+    else throw new Error('unknown error happend');
   }
 }
 

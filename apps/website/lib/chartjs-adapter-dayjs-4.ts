@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { _adapters } from 'chart.js';
 
 import dayjs, { QUnitType } from 'dayjs';

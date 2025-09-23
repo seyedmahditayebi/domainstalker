@@ -1,7 +1,7 @@
 'use client';
 import { Ellipsis, Pencil, FileText } from 'lucide-react';
 import Link from 'next/link';
-import { RefObject, useEffect, useRef, useState, MouseEvent } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
 
 export default function DomainDetailButton({ domain }: { domain: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,8 +31,8 @@ function PopUp({
 }) {
   useEffect(
     function () {
-      function handleClick(e) {
-        if (ref.current && !ref.current.contains(e.target)) {
+      function handleClick(e: MouseEvent) {
+        if (ref.current && !ref.current.contains(e.target as HTMLElement)) {
           handler();
         }
       }

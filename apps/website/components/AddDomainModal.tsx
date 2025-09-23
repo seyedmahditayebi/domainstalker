@@ -50,10 +50,13 @@ export default function AddDomainModal({
     setError(null);
     try {
       const formData = new FormData(event.currentTarget);
-      const response = await addDomain(formData);
+      await addDomain(formData);
       modalToggle();
     } catch (error) {
-      setError(error.message);
+      if (error instanceof Error) setError(error.message);
+      else if (typeof error === 'string') {
+        setError(error);
+      }
     } finally {
       setIsPending(false);
     }
