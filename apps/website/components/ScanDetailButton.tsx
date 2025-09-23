@@ -1,7 +1,8 @@
 'use client';
-import { Ellipsis } from 'lucide-react';
+import { Ellipsis, Eye } from 'lucide-react';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import DownloadScanButton from './DownloadScanButton';
+import Link from 'next/link';
 
 export default function ScanDetailButton({ scanId }: { scanId: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,6 +51,15 @@ function PopUp({
     >
       <li>
         <DownloadScanButton scanId={scanId} />
+      </li>
+      <li>
+        <Link
+          href={`/api/raw/scan/${scanId}`}
+          className="px-4 py-2 w-full h-full flex items-center justify-between hover:bg-primary-600 hover:cursor-pointer text-primary-50"
+        >
+          <p>View Raw</p>
+          <Eye size={20} />
+        </Link>
       </li>
     </ul>
   );

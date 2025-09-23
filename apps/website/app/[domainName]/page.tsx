@@ -1,6 +1,6 @@
 import { dayjsExtended } from '@/lib/dayjsExtended';
 import ScanOverview from '@/components/ScanOverview';
-import { Pencil } from 'lucide-react';
+import { Eye, Pencil } from 'lucide-react';
 import DomainTable from '@/components/DomainTable';
 import ScanDetailButton from '@/components/ScanDetailButton';
 import Link from 'next/link';
@@ -34,6 +34,15 @@ export default async function Page({ params }: PageProps) {
             </li>
             <li>
               <DownloadAllSubdomainsButton domainId={domainId.id} />
+            </li>
+            <li>
+              <Link
+                href={`/api/raw/domain/${domainName}`}
+                className="flex space-x-1 items-center bg-accent-700 hover:cursor-pointer hover:bg-accent-600"
+              >
+                <p>View Raw All</p>
+                <Eye size={16} />
+              </Link>
             </li>
           </ul>
         </nav>
