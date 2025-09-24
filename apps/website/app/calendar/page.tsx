@@ -6,7 +6,7 @@ export const revalidate = 10;
 export default async function Page() {
   const domains = await db.manager.find(Domain, {
     select: { name: true, nextScan: true, scanInterval: true },
-    where: { status: 'scheduled' },
+    where: [{ status: 'scanning' }, { status: 'scheduled' }],
   });
 
   return <TimeChart domains={JSON.parse(JSON.stringify(domains))} />;
