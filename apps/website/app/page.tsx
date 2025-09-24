@@ -6,6 +6,8 @@ import { dayjsExtended } from '@/lib/dayjsExtended';
 import db from '@/lib/appDataSource';
 import { Domain } from '@repo/db/Domain';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 5;
 export default async function Page() {
   const data = await db.manager.find(Domain, {
     select: {
