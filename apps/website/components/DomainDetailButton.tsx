@@ -2,8 +2,17 @@
 import { Ellipsis, Pencil, FileText } from 'lucide-react';
 import Link from 'next/link';
 import { RefObject, useEffect, useRef, useState } from 'react';
+import ToggleSchedule from './ToggleSchedule';
 
-export default function DomainDetailButton({ domain }: { domain: string }) {
+interface DomainDetailButtonProps {
+  domainName: string;
+  domainStatus: 'scanning' | 'scheduled' | 'not-scheduled' | null;
+}
+
+export default function DomainDetailButton({
+  domainName,
+  domainStatus,
+}: DomainDetailButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLElement>(null);
 
@@ -15,7 +24,14 @@ export default function DomainDetailButton({ domain }: { domain: string }) {
       <button className="basis-full hover:cursor-pointer" onClick={handleClick}>
         <Ellipsis className="hover:stroke-blue-500" />
       </button>
-      {isOpen && <PopUp ref={ref} handler={handleClick} domain={domain} />}
+      {isOpen && (
+        <PopUp
+          ref={ref}
+          handler={handleClick}
+          domainName={domainName}
+          domainStatus={domainStatus}
+        />
+      )}
     </div>
   );
 }
@@ -23,11 +39,13 @@ export default function DomainDetailButton({ domain }: { domain: string }) {
 function PopUp({
   ref,
   handler,
-  domain,
+  domainName,
+  domainStatus,
 }: {
   ref: RefObject<HTMLElement | null>;
   handler: () => void;
-  domain: string;
+  domainName: string;
+  domainStatus: 'scanning' | 'scheduled' | 'not-scheduled' | null;
 }) {
   useEffect(
     function () {
@@ -50,7 +68,7 @@ function PopUp({
     >
       <li>
         <Link
-          href={`/${domain}`}
+          href={`/${domainName}`}
           className="px-4 py-2 hover:bg-primary-600 cursor-pointer flex items-center justify-between"
         >
           <p>Details</p>
@@ -60,12 +78,15 @@ function PopUp({
 
       <li>
         <Link
-          href={`/${domain}/edit`}
+          href={`/${domainName}/edit`}
           className="px-4 py-2 hover:bg-primary-600 cursor-pointer flex items-center justify-between"
         >
           <p>Edit</p>
           <Pencil size={20} />
         </Link>
+      </li>
+      <li>
+        <ToggleSchedule domainName={domainName} domainStatus={domainStatus} />
       </li>
     </ul>
   );

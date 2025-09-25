@@ -52,7 +52,10 @@ export default async function Page() {
                   ? dayjsExtended(item.nextScan).fromNow()
                   : 'Never'}
               </p>
-              <DomainDetailButton domain={item.name} />
+              <DomainDetailButton
+                domainName={item.name}
+                domainStatus={item.status}
+              />
             </DomainTable.Row>
           ))}
         </DomainTable.Body>

@@ -153,3 +153,56 @@ export async function getDomainInterval(domainName: string): Promise<string> {
   }
   return 'failed to get interval';
 }
+
+export async function toggleSchedule(domainName: Domain['name']) {
+  const domain = await db.manager.findOne(Domain, {
+    where: { name: domainName },
+    select: {
+      id: true,
+      name: true,
+      scanInterval: true,
+      status: true,
+    },
+  });
+  const connection = new Redis({
+    maxRetriesPerRequest: null,
+    host: env['REDIS_HOST'],
+    port: Number(env['REDIS_PORT']),
+  });
+
+  const queue = new Queue('scanjob', { connection });
+  if (domain) {
+    if (domain.status === 'scheduled') {
+      await db.manager.update(
+        Domain,
+        { id: domain.id },
+        {
+          status: 'not-scheduled',
+          nextScan: null,
+        }
+      );
+      await queue.removeJobScheduler(domain.name);
+      revalidatePath('/');
+    } else if (domain.status === 'not-scheduled') {
+      await db.manager.update(
+        Domain,
+        { id: domain.id },
+        {
+          status: 'scanning',
+          nextScan: dayjsExtended()
+            .add(dayjsExtended.duration(domain.scanInterval).hours(), 'hour')
+            .add(dayjsExtended.duration(domain.scanInterval).days(), 'days')
+            .toDate(),
+        }
+      );
+      queue.upsertJobScheduler(
+        domainName,
+        {
+          every: dayjsExtended.duration(domain.scanInterval).asMilliseconds(),
+        },
+        { data: { name: domain.name, id: domain.id } }
+      );
+      revalidatePath('/');
+    }
+  }
+}
