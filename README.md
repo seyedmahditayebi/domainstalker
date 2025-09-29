@@ -13,6 +13,7 @@
 - docker
 - nodejs
 - pnpm
+- [subfinder](https://github.com/projectdiscovery/subfinder)
 
 #### Database Setup
 spin up a postgres and redis container:
