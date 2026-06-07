@@ -21,7 +21,7 @@ export default async function Page({ params }: PageProps) {
     <main>
       <div className="flex justify-between items-center border-b border-primary-50/20  py-5 px-6">
         <h1 className="font-bold text-3xl">{domainName}</h1>
-        <nav className="">
+        <nav className="hidden lg:block">
           <ul className="flex space-x-2  *:*:px-4 *:*:py-3 *:*:rounded-md">
             <li>
               <Link
@@ -47,9 +47,9 @@ export default async function Page({ params }: PageProps) {
           </ul>
         </nav>
       </div>
-      <div className="px-12 py-8 ">
+      <div className="px-3 lg:px-12 py-8">
         <ScanOverview domainId={domainId.id} />
-        <DomainTable className="*:grid *:grid-cols-[1fr_1fr_1fr_1fr_60px]  *:divide-x *:divide-solid  *:divide-primary-50/20  border border-primary-50/70 rounded-md">
+        <DomainTable className="overflow-x-scroll *:min-w-4xl *:grid *:grid-cols-[1fr_1fr_1fr_1fr_60px]  *:divide-x *:divide-solid  *:divide-primary-50/20  border border-primary-50/70 rounded-md">
           <DomainTable.Header>
             <p>Started_at</p>
             <p>Finished_at</p>

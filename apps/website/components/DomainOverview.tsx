@@ -21,7 +21,7 @@ export default async function DomainOverview() {
       <div className="">
         <h1 className="text-2xl font-bold">Overview:</h1>
       </div>
-      <div className="flex justify-evenly">
+      <div className="lg:flex flex-row items-center justify-center lg:justify-between w-full  ">
         <OverviewCard
           data={allDomains}
           text="Total Domains"

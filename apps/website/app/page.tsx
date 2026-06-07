@@ -20,9 +20,9 @@ export default async function Page() {
     },
   });
   return (
-    <main className="px-12 py-8 ">
+    <main className="lg:px-12 px-2 py-8 ">
       <DomainOverview />
-      <DomainTable className="*:grid *:grid-cols-[1fr_1fr_1fr_1fr_60px]  *:divide-x *:divide-solid  *:divide-primary-50/20  border border-primary-50/70 rounded-md">
+      <DomainTable className="hidden lg:block *:grid *:grid-cols-[1fr_1fr_1fr_1fr_60px]  *:divide-x *:divide-solid  *:divide-primary-50/20  border border-primary-50/70 rounded-md">
         <DomainTable.Header>
           <p>Domain</p>
           <p>Found Subdomains</p>
@@ -51,6 +51,29 @@ export default async function Page() {
                 {item.nextScan
                   ? dayjsExtended(item.nextScan).fromNow()
                   : 'Never'}
+              </p>
+              <DomainDetailButton
+                domainName={item.name}
+                domainStatus={item.status}
+              />
+            </DomainTable.Row>
+          ))}
+        </DomainTable.Body>
+      </DomainTable>
+
+      <DomainTable className="lg:hidden *:grid *:grid-cols-[1fr_1fr_60px]  *:divide-x *:divide-solid  *:divide-primary-50/20  border border-primary-50/70 rounded-md">
+        <DomainTable.Header>
+          <p>Domain</p>
+          <p>Found Subdomains</p>
+        </DomainTable.Header>
+        <DomainTable.Body>
+          {data.map((item) => (
+            <DomainTable.Row key={item.id}>
+              <p className="font-semibold">{item.name}</p>
+              <p>
+                {item.totalSubdomains
+                  ? item.totalSubdomains.split('\n').length
+                  : 0}
               </p>
               <DomainDetailButton
                 domainName={item.name}

@@ -47,7 +47,7 @@ function PopUp({
   return (
     <ul
       ref={ref as RefObject<HTMLUListElement>}
-      className="absolute bottom-0 bg-primary-800 w-36 -translate-x-full translate-y-1/2 -left-0 border border-gray-300 rounded-md "
+      className="absolute -top-14 bg-primary-800 w-36 -translate-x-full translate-y-1/2 -left-0 border border-gray-300 rounded-md "
     >
       <li>
         <DownloadScanButton scanId={scanId} />
